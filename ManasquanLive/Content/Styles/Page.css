@@ -1,14 +1,28 @@
 ﻿.page {
-  width: 99%;
+  width: 100%;
   margin: auto;
   display: inline-block;
   height: 900px;
 }
-.left-offers {
-  float: left;
+.left-panel {
   display: inline-block;
   width: 15%;
   height: 100%;
+}
+.left-panel .left-offers {
+  float: left;
+  height: 100%;
+  width: 90%;
+}
+.left-panel .left-toggle {
+  float: right;
+  height: 100%;
+  width: 10%;
+}
+.left-panel .left-toggle button {
+  width: 100%;
+  top: 50%;
+  position: relative;
 }
 .center-map {
   border-right: 1px solid black;
@@ -17,10 +31,30 @@
   width: 69%;
   height: 100%;
 }
-.right-content {
-  float: right;
+.right-panel {
   display: inline-block;
   width: 15%;
   height: 100%;
+}
+.right-panel .right-content {
+  float: right;
+  height: 100%;
+  width: 90%;
+}
+.right-panel .right-content .right-content-news {
+  width: 100%;
+}
+.right-panel .right-content .right-content-events {
+  width: 100%;
+}
+.right-panel .right-toggle {
+  float: left;
+  height: 100%;
+  width: 10%;
+}
+.right-panel .right-toggle button {
+  width: 100%;
+  top: 50%;
+  position: relative;
 }
 /*# sourceMappingURL=Page.css.map */

@@ -1,15 +1,30 @@
 ﻿.page{
-    width:99%;
+    width:100%;
     margin:auto;
     display:inline-block;
     height:900px;
 }
 
-.left-offers{
-    float:left;
+.left-panel{
+    
     display:inline-block;
     width:15%;
     height:100%;
+    .left-offers{
+        float:left;
+        height:100%;
+        width:90%;
+    }
+    .left-toggle{
+        float:right;
+        height:100%;
+        width:10%;
+        button{
+            width:100%;
+            top:50%;
+            position:relative;
+        }
+    }
 }
 
 .center-map{
@@ -20,14 +35,30 @@
     height:100%;
 }
 
-.right-content{
-    float:right;
-    display:inline-block;
-    width:15%;
-    height:100%;
+.right-panel{
     
-    .right-content-news{
+    display:inline-block;
+    width:15%; 
+    height:100%;
+    .right-content{
+        float:right;
+        height:100%;
+        width:90%;
+        .right-content-news{
+            width:100%;
+        }
+        .right-content-events{
+             width:100%;
+        }
     }
-    .right-content-events{
-    }
+    .right-toggle{
+        float:left;
+        height:100%;
+        width:10%;
+        button{
+            width:100%;
+            top:50%; 
+            position:relative;
+        }
+    }   
 }
