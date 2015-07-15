@@ -1,4 +1,7 @@
-﻿.page {
+﻿body {
+  background-color: #444444;
+}
+.page {
   width: 100%;
   margin: auto;
   display: inline-block;
@@ -10,8 +13,10 @@
   height: 100%;
 }
 .left-panel .left-offers {
+  background-color: #ececee;
   float: left;
   height: 100%;
+  border: 1px solid black;
   width: 90%;
 }
 .left-panel .left-toggle {
@@ -19,17 +24,30 @@
   height: 100%;
   width: 10%;
 }
-.left-panel .left-toggle button {
+.left-panel .left-toggle #left-toggle-image {
   width: 100%;
-  top: 50%;
+  top: 45%;
+  height: 80px;
   position: relative;
+  background: url('../Images/ToggleArrowLeft.png') no-repeat;
+  cursor: pointer;
 }
-.center-map {
-  border-right: 1px solid black;
-  border-left: 1px solid black;
+.center-panel {
+  border: 1px solid black;
   display: inline-block;
+  vertical-align: top;
   width: 69%;
   height: 100%;
+}
+.center-panel .center-map {
+  display: block;
+  width: 100%;
+  height: 95%;
+}
+.center-panel .map-selection {
+  display: block;
+  width: 100%;
+  height: 5%;
 }
 .right-panel {
   display: inline-block;
@@ -37,24 +55,32 @@
   height: 100%;
 }
 .right-panel .right-content {
+  background-color: #ececee;
   float: right;
   height: 100%;
   width: 90%;
 }
 .right-panel .right-content .right-content-news {
   width: 100%;
+  height: 50%;
+  border: 1px solid black;
 }
 .right-panel .right-content .right-content-events {
   width: 100%;
+  height: 50%;
+  border: 1px solid black;
 }
 .right-panel .right-toggle {
   float: left;
   height: 100%;
   width: 10%;
 }
-.right-panel .right-toggle button {
+.right-panel .right-toggle #right-toggle-image {
   width: 100%;
-  top: 50%;
+  top: 45%;
+  height: 80px;
   position: relative;
+  background: url('../Images/ToggleArrowRight.png') no-repeat;
+  cursor: pointer;
 }
 /*# sourceMappingURL=Page.css.map */

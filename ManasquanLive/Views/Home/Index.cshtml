@@ -7,14 +7,32 @@
         Local Resturants/bar offers
     </div>
     <div class="left-toggle">
-        <button onclick="LeftPanel.toggle();"></button>
+        <div id="left-toggle-image" onclick="LeftPanel.toggle();"></div>
     </div>
 </div>
-<div id="map-canvas" class="center-map">
+<div class="center-panel">
+    <div id="map-canvas" class="center-map">
+    </div>
+    <div class="map-selection">
+        Map Filters:
+        <table>
+            <tr>
+                <td>
+                    Item 1<input type="checkbox" />
+                </td>
+                <td>
+                    Item 2<input type="checkbox" />
+                </td>
+                <td>
+                    Item 3<input type="checkbox" />
+                </td>
+            </tr>
+        </table>
+</div>
 </div>
 <div class="right-panel">
     <div class="right-toggle">
-        <button onclick="RightPanel.toggle();"></button>
+        <div id="right-toggle-image" onclick="RightPanel.toggle();"></div>
     </div>
     <div class="right-content">
         <div class="right-content-news">
