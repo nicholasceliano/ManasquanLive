@@ -1,5 +1,7 @@
 ﻿body {
   background-color: #444444;
+  overflow-y: hidden !important;
+  overflow-x: auto !important;
 }
 .page {
   width: 100%;
@@ -9,20 +11,22 @@
 }
 .left-panel {
   display: inline-block;
-  width: 15%;
+  float: left;
+  width: 250px;
   height: 100%;
+  background-color: #ececee;
 }
 .left-panel .left-offers {
-  background-color: #ececee;
   float: left;
   height: 100%;
   border: 1px solid black;
-  width: 90%;
+  width: 230px;
 }
 .left-panel .left-toggle {
+  background-color: #444444;
   float: right;
   height: 100%;
-  width: 10%;
+  width: 20px;
 }
 .left-panel .left-toggle #left-toggle-image {
   width: 100%;
@@ -36,8 +40,8 @@
   border: 1px solid black;
   display: inline-block;
   vertical-align: top;
-  width: 69%;
   height: 100%;
+  margin: auto;
 }
 .center-panel .center-map {
   display: block;
@@ -51,14 +55,15 @@
 }
 .right-panel {
   display: inline-block;
-  width: 15%;
+  float: right;
+  width: 250px;
   height: 100%;
+  background-color: #ececee;
 }
 .right-panel .right-content {
-  background-color: #ececee;
   float: right;
   height: 100%;
-  width: 90%;
+  width: 230px;
 }
 .right-panel .right-content .right-content-news {
   width: 100%;
@@ -71,9 +76,10 @@
   border: 1px solid black;
 }
 .right-panel .right-toggle {
+  background-color: #444444;
   float: left;
   height: 100%;
-  width: 10%;
+  width: 20px;
 }
 .right-panel .right-toggle #right-toggle-image {
   width: 100%;

@@ -6,6 +6,8 @@
 
 body {
     background-color:@pageBackground;
+    overflow-y: hidden !important;
+    overflow-x: auto !important;
 }
 
 .page{
@@ -17,19 +19,21 @@ body {
 
 .left-panel{
     display:inline-block;
-    width:15%;
+    float:left;
+    width:250px;
     height:100%;
+    background-color:@panelBackground;
     .left-offers{
-        background-color:@panelBackground;
         float:left;
         height:100%;
         border:1px solid black;
-        width:90%;
+        width:230px;
     }
     .left-toggle{
+        background-color:@pageBackground;
         float:right;
         height:100%;
-        width:10%;
+        width:20px;
         #left-toggle-image{
             width:100%;
             top:45%;
@@ -45,8 +49,8 @@ body {
     border:1px solid black;
     display:inline-block;
     vertical-align:top;
-    width:69%;
     height:100%;
+    margin:auto;
     .center-map{
         display:block;
         width:100%;
@@ -62,13 +66,14 @@ body {
 
 .right-panel{
     display:inline-block;
-    width:15%; 
+    float:right;
+    width:250px; 
     height:100%;
+    background-color:@panelBackground;
     .right-content{
-        background-color:@panelBackground;
         float:right;
         height:100%;
-        width:90%;
+        width:230px;
         .right-content-news{
             width:100%;
             height:50%;
@@ -81,9 +86,10 @@ body {
         }
     }
     .right-toggle{
+        background-color:@pageBackground;
         float:left;
         height:100%;
-        width:10%;
+        width:20px;
         #right-toggle-image{
             width:100%;
             top:45%;

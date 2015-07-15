@@ -9,18 +9,23 @@
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/scripts")
     @Scripts.Render("~/bundles/custom")
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        @Html.ActionLink("Manasquan Live", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-    </div>
-    <div class="page">
-        @RenderBody()
-        <hr />
-    </div>
+        <script type="text/javascript">
+            $(window ).resize(function() {
+                Maps.resizeMap(500);
+            });
+        </script>
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            @Html.ActionLink("Manasquan Live", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="page">
+            @RenderBody()
+            <hr />
+        </div>
 
-    <script type="text/javascript">
-        Maps.initialize();
+        <script type="text/javascript">
+            Maps.initialize();
     </script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

@@ -5,34 +5,33 @@
             centerPanel = $('.center-panel'),
             leftOffers = $('.left-offers'),
             leftToggleImage = $('#left-toggle-image'),
+            rightContent = $('.right-content'),
             panelWidth,
-            animateTime = 0;
+            animateTime = 350,
+            mapResizeAmnt = 0;
 
         if (leftOffers.is(':visible')) {
-            var mapWidth = Math.round((100 * parseFloat(centerPanel.css('width')) / parseFloat(centerPanel.parent().css('width'))));
-            if (mapWidth == 83) {
-                centerPanel.animate({ width: '97%' }, animateTime);
+            if (rightContent.is(':visible')) {
+                mapResizeAmnt = 270;
             } else {
-                centerPanel.animate({ width: '83%' }, animateTime);
+                mapResizeAmnt = 40;
             }
-            panelWidth = '1%';
+            panelWidth = '20px';
             leftToggleImage.css('background', 'url(/Content/Images/ToggleArrowRight.png) no-repeat');
-            $('.left-toggle').width('100%');
         } else {
-            var mapWidth = Math.round((100 * parseFloat(centerPanel.css('width')) / parseFloat(centerPanel.parent().css('width'))));
-            if (mapWidth == 83) {
-                centerPanel.animate({ width: '69%' }, animateTime);
+            if (rightContent.is(':visible')) {
+                Maps.resizeMap(500);
             } else {
-                centerPanel.animate({ width: '83%' }, animateTime);
+                Maps.resizeMap(270);
             }
-
-            panelWidth = '15%';
+            panelWidth = '250px';
             leftToggleImage.css('background', 'url(/Content/Images/ToggleArrowLeft.png) no-repeat');
-            $('.left-toggle').width('10%');
         }
         
         panel.animate({ width: panelWidth }, animateTime, function () {
             leftOffers.toggle();
+            if (mapResizeAmnt > 0)
+                Maps.resizeMap(mapResizeAmnt);
         });
     }
 
