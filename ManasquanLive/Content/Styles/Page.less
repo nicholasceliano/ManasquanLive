@@ -2,12 +2,37 @@
 @pageBackground: #444444;
 @darkOJ: #a05e00;
 @buttonBackgroundGrey: #999999;
+@borderRadius: 25px;
 
+@font-face {
+    font-family: 'PT_Sans-Narrow-Web-Regular';
+    src: url('../fonts/PT_Sans-Narrow-Web-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'PT_Sans-Narrow-Web-Bold';
+    src: url('../fonts/PT_Sans-Narrow-Web-Bold.ttf') format('truetype');
+}
 
 body {
     background-color:@pageBackground;
     overflow-y: hidden !important;
     overflow-x: auto !important;
+    font-family: 'PT_Sans-Narrow-Web-Regular';
+}
+
+h1{
+    font-family: 'PT_Sans-Narrow-Web-Bold';
+    color:@pageBackground;
+    font-size:30px;
+    font-style:italic;
+    margin:0;
+    text-align:center;
+    width:100%;
+    white-space:nowrap;
+}
+
+ul{
+    padding-left:20px;
 }
 
 .page{
@@ -22,12 +47,14 @@ body {
     float:left;
     width:250px;
     height:100%;
-    background-color:@panelBackground;
+    background-color:@pageBackground;
     .left-offers{
         float:left;
         height:100%;
-        border:1px solid black;
         width:230px;
+        background-color:@panelBackground;
+        border-bottom-right-radius: @borderRadius;
+        border-top-right-radius: @borderRadius;
     }
     .left-toggle{
         background-color:@pageBackground;
@@ -60,29 +87,38 @@ body {
         display:block;
         width:100%;
         height:5%;
+        background-color:@panelBackground;
+        table{
+            color:@darkOJ;
+        }
     }
 }
-
 
 .right-panel{
     display:inline-block;
     float:right;
     width:250px; 
     height:100%;
-    background-color:@panelBackground;
+    background-color:@pageBackground;
     .right-content{
         float:right;
         height:100%;
         width:230px;
+        background-color:@panelBackground;
+        border-top-left-radius: @borderRadius;
+        border-bottom-left-radius: @borderRadius;
         .right-content-news{
             width:100%;
             height:50%;
-            border:1px solid black;
+            border-top-left-radius: @borderRadius;
+            background-color:@panelBackground;
+            border-bottom:1px solid @pageBackground;
         }
         .right-content-events{
             width:100%;
             height:50%;
-            border:1px solid black;
+            border-bottom-left-radius: @borderRadius;
+            background-color:@panelBackground;
         }
     }
     .right-toggle{

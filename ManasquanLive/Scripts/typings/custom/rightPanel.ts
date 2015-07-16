@@ -2,37 +2,61 @@
 
     export function toggle() {
         var panel = $('.right-panel'),
-            centerPanel = $('.center-panel'),
+            leftPanel = $('.left-panel'),
             rightContent = $('.right-content'),
-            leftOffers = $('.left-offers'),
             rightToggleImage = $('#right-toggle-image'),
             panelWidth,
+            fadeDuration = 100,
             animateTime = 350,
-            mapResizeAmnt = 0;
+            mapResizeAmnt = 0,
+            resizeLater = false;
 
-        if (rightContent.is(':visible')) {
-            if (leftOffers.is(':visible')) {
-                mapResizeAmnt = 270;
-            } else {
-                mapResizeAmnt = 40;
-            }
-            panelWidth = '20px';
-            rightToggleImage.css('background', 'url(/Content/Images/ToggleArrowLeft.png) no-repeat');
+        if (panel.width() !== rightToggleImage.width()) {
+            panelWidth = rightToggleImage.width()
+            rightContent.children().find('ul').fadeToggle({ duration: 100 });
         } else {
-            if (leftOffers.is(':visible')) {
-                Maps.resizeMap(500);
-            } else {
-                Maps.resizeMap(270);
-            }
-            panelWidth = '250px'
-            rightToggleImage.css('background', 'url(/Content/Images/ToggleArrowRight.png) no-repeat');
+            panelWidth = 250
         }
 
-        panel.animate({ width: panelWidth }, animateTime, function () {
-            rightContent.toggle();
-            if (mapResizeAmnt > 0)
-                Maps.resizeMap(mapResizeAmnt);
-        });
+        if (panelWidth == 20 && leftPanel.width() == 20) {
+            resizeLater = true;
+            mapResizeAmnt = 40;
+        } else if (panelWidth == 20 && leftPanel.width() == 250) {
+            resizeLater = true;
+            mapResizeAmnt = 270
+        } else if (panelWidth == 250 && leftPanel.width() == 20) {
+            mapResizeAmnt = 270
+        } else if (panelWidth == 250 && leftPanel.width() == 250) {
+            mapResizeAmnt = 500
+        }
+
+        if (!resizeLater)
+            Maps.resizeMap(mapResizeAmnt);
+
+        panel.animate({
+            width: panelWidth
+        }, {
+                duration: animateTime,
+                step: function (currWidth) {
+                    panel.width(currWidth);
+                    rightContent.width(currWidth - rightToggleImage.width());
+
+                    if (currWidth === panelWidth) {
+                        if (panelWidth == 250) {
+                            rightContent.children().fadeToggle({ duration: fadeDuration });
+                            rightContent.children().find('ul').fadeToggle({ duration: fadeDuration });
+                            rightToggleImage.css('transform', '');
+                        }
+                        else {
+                            rightToggleImage.css('transform', 'rotate(180deg)');
+                            rightContent.children().toggle();
+                        }
+
+                        if (resizeLater)
+                            Maps.resizeMap(mapResizeAmnt);
+                    }
+                }
+            });
     }
 
     export function loadNews() {
