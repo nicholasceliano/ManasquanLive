@@ -18,8 +18,9 @@ namespace ManasquanLive
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
-                      "~/Scripts/angular.min.js",
-                      "~/Scripts/jquery-1.10.2.min.js"));
+                    "~/Scripts/jquery.flip.min.js",      
+                    "~/Scripts/angular.min.js",
+                    "~/Scripts/jquery-1.10.2.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
                     "~/Scripts/typings/custom/leftPanel.js",

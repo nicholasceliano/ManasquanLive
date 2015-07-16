@@ -10,8 +10,22 @@
     @Scripts.Render("~/bundles/scripts")
     @Scripts.Render("~/bundles/custom")
         <script type="text/javascript">
-            $(window ).resize(function() {
-                Maps.resizeMap(500);
+            $(window).resize(function () {
+                var leftPanel = $('.left-panel'),
+                    rightPanel = $('.right-panel'),
+                    mapResizeAmnt;
+
+                if (leftPanel.width() == 20 && rightPanel.width() == 20) {
+                    mapResizeAmnt = 40;
+                } else if (leftPanel.width() == 20 && rightPanel.width() == 250) {
+                    mapResizeAmnt = 270
+                } else if (leftPanel.width() == 250 && rightPanel.width() == 20) {
+                    mapResizeAmnt = 270
+                } else if (leftPanel.width() == 250 && rightPanel.width() == 250) {
+                    mapResizeAmnt = 500
+                }
+
+                Maps.resizeMap(mapResizeAmnt);//fix
             });
         </script>
     </head>
@@ -23,10 +37,9 @@
             @RenderBody()
             <hr />
         </div>
-
-        <script type="text/javascript">
-            Maps.initialize();
-    </script>
+        <script>
+            Maps.initializeMap();
+        </script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

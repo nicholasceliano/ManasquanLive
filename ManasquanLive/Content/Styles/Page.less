@@ -73,15 +73,21 @@ ul{
 }
 
 .center-panel{
-    border:1px solid black;
     display:inline-block;
     vertical-align:top;
     height:100%;
     margin:auto;
-    .center-map{
+
+    .center-panel-flip{
         display:block;
         width:100%;
         height:95%;
+        border-bottom:1px solid @pageBackground;
+    }
+    .center-map{
+        display:block;
+        width:100%;
+        height:100%;
     }
     .map-selection{
         display:block;
@@ -91,6 +97,13 @@ ul{
         table{
             color:@darkOJ;
         }
+    }
+
+    .map-locations-list{
+        display:none;
+        width:100%;
+        height:100%;
+        background-color:@panelBackground;
     }
 }
 

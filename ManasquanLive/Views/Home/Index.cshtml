@@ -15,10 +15,16 @@
     </div>
 </div>
 <div class="center-panel">
-    <div id="map-canvas" class="center-map">
+    <div class="center-panel-flip">
+        <div id="map-canvas" class="center-map">
+        </div>
+        <div class="map-locations-list">
+            Load list of locations....
+        </div>
     </div>
     <div class="map-selection">
         Map Filters:
+        <p style="float:right;cursor:pointer;" onclick="Maps.flipCenterPanel()">List of locations</p>
         <table>
             <tr>
                 <td>
@@ -32,7 +38,7 @@
                 </td>
             </tr>
         </table>
-</div>
+    </div>
 </div>
 <div class="right-panel">
     <div class="right-toggle">

@@ -1864,6 +1864,8 @@ interface JQuery {
      */
     toggle(showOrHide: boolean): JQuery;
 
+    flip(any): any;
+
     /**
      * Attach a handler to an event for the elements.
      * 
