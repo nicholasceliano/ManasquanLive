@@ -60,6 +60,26 @@
     }
 
     export function loadNews() {
+        //Load google news
+
+        // load coast star news....order it
+
+        var title = "jQuery";
+
+        $.getJSON("https://news.google.com/news?q=manasquan&output=rss&format=json&callback=?", function (data) {
+            console.log(data);
+        });
+
+        $.ajax({
+            url: 'https://news.google.com/news?q=manasquan&output=rss' +'$callback=?',
+            type: 'GET',
+            success: function (data) {
+                $('#test').val(data);
+                console.log(data);
+
+            }
+        });
+
         //load news onto  page
         //Need to figure out to to structure this
     }

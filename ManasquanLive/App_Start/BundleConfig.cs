@@ -25,6 +25,7 @@ namespace ManasquanLive
             bundles.Add(new ScriptBundle("~/bundles/custom").Include(
                     "~/Scripts/typings/custom/leftPanel.js",
                     "~/Scripts/typings/custom/rightPanel.js",
+                    "~/Scripts/typings/custom/page.js",
                     "~/Scripts/typings/custom/maps.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

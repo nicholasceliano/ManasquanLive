@@ -25,20 +25,23 @@
                     mapResizeAmnt = 500
                 }
 
-                Maps.resizeMap(mapResizeAmnt);//fix
+                Maps.resizeMap(mapResizeAmnt);
+                Page.setHeight();
             });
         </script>
     </head>
     <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
+        <header class="navbar navbar-inverse navbar-fixed-top">
             @Html.ActionLink("Manasquan Live", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-        </div>
+        </header>
         <div class="page">
             @RenderBody()
             <hr />
         </div>
         <script>
             Maps.initializeMap();
+            Page.setHeight();
+            RightPanel.loadNews();
         </script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
