@@ -16,7 +16,7 @@
 body {
     background-color:@pageBackground;
     overflow-y: hidden !important;
-    overflow-x: auto !important;
+    overflow-x: hidden !important;
     font-family: 'PT_Sans-Narrow-Web-Regular';
 }
 
@@ -130,6 +130,17 @@ hr{
             border-top-left-radius: @borderRadius;
             background-color:@panelBackground;
             border-bottom:1px solid @pageBackground;
+
+            #news-list{
+                overflow-y:scroll;
+                height:100% - 30px;
+                list-style-type: none;
+                padding-left:5px;
+                margin:0;
+                img{
+                    height:16px;
+                }
+            }
         }
         .right-content-events{
             width:100%;

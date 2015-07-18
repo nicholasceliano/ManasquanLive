@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ManasquanLive.Models;
 using HtmlAgilityPack;
 using System.Text.RegularExpressions;
+using System.Web.Script.Serialization;
 
 namespace ManasquanLive.Controllers
 {
@@ -16,34 +17,76 @@ namespace ManasquanLive.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Your contact page.";
             ViewBag.News = GetNews();
             return View();
         }
 
-        private string GetNews(){
-            string gg = GetGoogleNews();
-            List<NewsModel> aa = StarNewsGroupNews();
-
-            //need to combine both lists and sort by date 
-            //then conver to json and return 
-
-            return Newtonsoft.Json.JsonConvert.SerializeObject(aa);
-        }
-
-
-        private string GetGoogleNews()
+        private string GetNews()
         {
-            string news = WebRequestData("https://news.google.com/news?q=manasquan&output=rss");
-            //need to modify news
-
-            return "";
-
+            //Maybe load this into memory? Not sure how to do this. Something about Global.asax?
+            List<NewsModel> newsList = new List<NewsModel>();
+            newsList = StarNewsGroupNews(GetGoogleNews());        
+            newsList.Sort(new Comparison<NewsModel>((x, y) => DateTime.Compare(y.Date , x.Date)));
+    
+            return Newtonsoft.Json.JsonConvert.SerializeObject(newsList); ;
         }
 
-        private List<NewsModel> StarNewsGroupNews()
+        private List<NewsModel> GetGoogleNews()
         {
             List<NewsModel> newsList = new List<NewsModel>();
+            string news = WebRequestData("https://news.google.com/news?q=manasquan&output=rss");
+
+            HtmlDocument html = new HtmlDocument();
+            html.LoadHtml(HttpUtility.HtmlDecode(news));
+
+            HtmlNode listOfNewsEvents = html.DocumentNode.ChildNodes["rss"].ChildNodes["channel"];
+            foreach (HtmlNode item in listOfNewsEvents.ChildNodes)
+            {
+                if (item.Name == "item")
+                {
+                    string headline = string.Empty;
+                    DateTime date = new DateTime();
+                    string provider = string.Empty;
+                    string url = string.Empty;
+                    foreach (HtmlNode attr in item.ChildNodes)
+                    {
+                        string attrText = attr.InnerText;
+                        if (attr.Name == "title")
+                        {
+                            string[] splits = attrText.Split('-');
+                            for (int i = 0; i < splits.Length - 1; i++)
+                            {
+                                if (i == 0)
+                                    headline = splits[i];
+                                else
+                                    headline = headline + "-" + splits[i];
+                            }
+                            provider = splits[splits.Length - 1].Trim();
+                        }
+                        else if (attr.Name == "pubdate") 
+                        {
+                            date = DateTime.Parse(attrText);
+                        }
+                        else if (attr.Name == "link")
+                        {
+                            url = attr.NextSibling.InnerText;
+                        }
+                    }
+                    NewsModel newsArticle = new NewsModel();
+                    newsArticle.Headline = headline;
+                    newsArticle.Date = date;
+                    newsArticle.Provider = provider;
+                    newsArticle.URL = url;
+
+                    newsList.Add(newsArticle);
+                }
+            }
+
+            return newsList;
+        }
+
+        private List<NewsModel> StarNewsGroupNews(List<NewsModel> newsList)
+        {
             string baseURL = "http://starnewsgroup.com";
             string news = WebRequestData(baseURL + "/town.html?town=Manasquan");
             
@@ -64,7 +107,7 @@ namespace ManasquanLive.Controllers
                     NewsModel newsArticle = new NewsModel();
                     newsArticle.Headline = innerText;
                     newsArticle.Date = DateTime.ParseExact(dateText, "MM.dd.yy", System.Globalization.CultureInfo.InvariantCulture);
-                    newsArticle.Provider = "CoastStar";
+                    newsArticle.Provider = "Star News Group";
                     newsArticle.URL = baseURL + href;
 
                     newsList.Add(newsArticle);
@@ -73,7 +116,6 @@ namespace ManasquanLive.Controllers
 
             return newsList;
         }
-
 
         private string WebRequestData(string url)
         {

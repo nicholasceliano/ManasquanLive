@@ -199,6 +199,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\NewsIcons\app.ico" />
+    <Content Include="Content\Images\NewsIcons\news.ico" />
+    <Content Include="Content\Images\NewsIcons\patch.ico" />
+    <Content Include="Content\Images\NewsIcons\starNewsGroup.ico" />
     <Content Include="Content\Images\ToggleArrowLeft.png" />
     <Content Include="Content\Images\ToggleArrowRight.png" />
     <Content Include="Content\Styles\bootstrap.css" />

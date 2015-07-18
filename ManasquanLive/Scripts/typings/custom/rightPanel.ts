@@ -59,33 +59,47 @@
             });
     }
 
-    export function loadNews() {
-        //Load google news
+    export function loadNews(jsonNews: string) {
+        var jsonString = jsonNews.replace(new RegExp('&quot;', 'g'), '"').replace(new RegExp('�', 'g'), "'");
+        var newsArray: News[] = JSON.parse(jsonString);
 
-        // load coast star news....order it
+        for (var i = 0; i < newsArray.length; i++) {
+            //load this into panel
+            var newsIconHref;
 
-        var title = "jQuery";
-
-        $.getJSON("https://news.google.com/news?q=manasquan&output=rss&format=json&callback=?", function (data) {
-            console.log(data);
-        });
-
-        $.ajax({
-            url: 'https://news.google.com/news?q=manasquan&output=rss' +'$callback=?',
-            type: 'GET',
-            success: function (data) {
-                $('#test').val(data);
-                console.log(data);
-
+            if (newsArray[i].Provider == 'Star News Group') {
+                newsIconHref = '/Content/Images/NewsIcons/starNewsGroup.ico';
+            } else if (newsArray[i].Provider == 'Asbury Park Press') {
+                newsIconHref = '/Content/Images/NewsIcons/app.ico';
+            } else if (newsArray[i].Provider == 'Patch.com') {
+                newsIconHref = '/Content/Images/NewsIcons/patch.ico';
+            } else {
+                newsIconHref = '/Content/Images/NewsIcons/news.ico';
             }
-        });
 
-        //load news onto  page
-        //Need to figure out to to structure this
+            var listItem = '<li><a href="' + newsArray[i].URL + '" target="_blank" title="Published: ' + new Date(newsArray[i].Date).toDateString() + '">- '+ newsArray[i].Headline + '</a>\
+            <img src="' + newsIconHref + '" title="' + newsArray[i].Provider + '" /></li>';
+
+            $('#news-list').append(listItem);
+
+            setNewsHeight();
+        }
+    }
+
+    export function setNewsHeight() {
+        var newsContent = $('.right-content-news');
+        $('#news-list').height(newsContent.height() - newsContent.find('h1').height())
     }
 
     export function loadEvents() {
         //load events onto  page
         //Need to figure out to to structure this
+    }
+
+    class News {
+        public Headline: string;
+        public Date: string;
+        public URL: string;
+        public Provider: string;
     }
 }
