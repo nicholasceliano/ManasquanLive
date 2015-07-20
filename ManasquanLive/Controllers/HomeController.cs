@@ -18,6 +18,7 @@ namespace ManasquanLive.Controllers
         public ActionResult Index()
         {
             ViewBag.News = GetNews();
+            ViewBag.Locations = GetLocations();
             return View();
         }
 
@@ -28,7 +29,13 @@ namespace ManasquanLive.Controllers
             newsList = StarNewsGroupNews(GetGoogleNews());        
             newsList.Sort(new Comparison<NewsModel>((x, y) => DateTime.Compare(y.Date , x.Date)));
     
-            return Newtonsoft.Json.JsonConvert.SerializeObject(newsList); ;
+            return Newtonsoft.Json.JsonConvert.SerializeObject(newsList);
+        }
+
+        private string GetLocations()
+        {
+            List<LocationsModel> businessLocations = GetBusinessLocations();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(businessLocations);
         }
 
         private List<NewsModel> GetGoogleNews()
@@ -115,6 +122,67 @@ namespace ManasquanLive.Controllers
             }
 
             return newsList;
+        }
+
+        private List<LocationsModel> GetBusinessLocations()
+        {
+            List<LocationsModel> locationsList = new List<LocationsModel>();
+            string businessLocations = Regex.Replace(WebRequestData("http://www.manasquanchamber.org/member-directory.html"), @"\t|\n|\r", "").Replace("</td><tr>", "</td></tr><tr>");
+            HtmlDocument html = new HtmlDocument();
+            html.LoadHtml(HttpUtility.HtmlDecode(businessLocations));
+
+            HtmlNode listOfLocations = html.DocumentNode.SelectNodes("//table[contains(@class,'sortable')]")[0];
+            foreach (HtmlNode tr in listOfLocations.SelectNodes("tr"))
+            {
+                if (tr.FirstChild.Name == "td")
+                {
+                    LocationsModel loc = new LocationsModel();
+                    foreach (HtmlNode td in tr.ChildNodes)
+                    {
+                        if (td == tr.FirstChild)
+                        {
+                            int brCt = 0;
+                            foreach (HtmlNode node in td.ChildNodes)
+                            {
+                                if (node.Name == "br")
+                                {
+                                    string val = node.PreviousSibling.InnerText;
+                                    switch (brCt)
+                                    {
+                                        case 0:
+                                            loc.BusinessName = val;
+                                            break;
+                                        case 1:
+                                            loc.Address = val;
+                                            break;
+                                        case 2:
+                                            loc.Telephone = val;
+                                            break;
+                                        case 3:
+                                            loc.Email = val;
+                                            break;
+                                        case 4:
+                                            loc.Website = val;
+                                            break;
+                                        case 5:
+                                            loc.Description = node.NextSibling == null ? string.Empty : node.NextSibling.InnerText.Replace('"','\'');
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                    brCt++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            loc.Categories = td.InnerText.Split(',').Select(x => x.Trim()).ToArray();
+                        }
+                    }
+                    locationsList.Add(loc);
+                }
+            }
+            return locationsList;
         }
 
         private string WebRequestData(string url)

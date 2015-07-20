@@ -39,10 +39,32 @@ module Maps {
     export function flipCenterPanel() {
         $('.center-panel-flip').flip('toggle');
     }
+
+    export function loadLocations(jsonLocations: string) {
+        var jsonString = jsonLocations.replace(new RegExp('&quot;', 'g'), '"').replace(new RegExp('�', 'g'), "'");
+        var locationsArray: Locations[] = JSON.parse(jsonString);
+
+        for (var i = 0; i < locationsArray.length; i++) {
+            $('.map-locations-list').append('<p>' + locationsArray[i].BusinessName + '</p>');
+
+
+        }
+
+    }
     
     export function loadMapData() {
         //load map data onto  page
         //Need to figure out to to structure this
     }
 
+
+    class Locations {
+        public BusinessName: string;
+        public Address: string;
+        public Telephone: string;
+        public Email: string;
+        public Website: string;
+        public Description: string;
+        public Categories: string[];
+    }
 }

@@ -89,6 +89,7 @@ hr {
   color: #a05e00;
 }
 .center-panel .map-locations-list {
+  overflow-y: scroll;
   display: none;
   width: 100%;
   height: 100%;

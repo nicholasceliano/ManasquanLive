@@ -43,6 +43,7 @@
             Maps.initializeMap();
             Page.setHeight();
             RightPanel.loadNews('@ViewBag.News');
+            Maps.loadLocations('@ViewBag.Locations');
         </script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
