@@ -27,7 +27,7 @@
 
                 Maps.resizeMap(mapResizeAmnt);
                 Page.setHeight();
-                RightPanel.setNewsHeight();
+                RightPanel.setHeights();
             });
         </script>
     </head>
@@ -43,6 +43,7 @@
             Maps.initializeMap();
             Page.setHeight();
             RightPanel.loadNews('@ViewBag.News');
+            RightPanel.loadEvents('@ViewBag.Events');
             Maps.loadLocations('@ViewBag.Locations');
         </script>
     @Scripts.Render("~/bundles/bootstrap")

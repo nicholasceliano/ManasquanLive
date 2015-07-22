@@ -48,6 +48,12 @@ module Maps {
             $('.map-locations-list').append('<p>' + locationsArray[i].BusinessName + '</p>');
 
 
+            
+
+
+
+
+
         }
 
     }

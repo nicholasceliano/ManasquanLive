@@ -82,18 +82,37 @@
 
             $('#news-list').append(listItem);
 
-            setNewsHeight();
+            setHeights();
         }
     }
 
-    export function setNewsHeight() {
-        var newsContent = $('.right-content-news');
-        $('#news-list').height(newsContent.height() - newsContent.find('h1').height())
+    export function loadEvents(jsonEvents: string) {
+        var jsonString = jsonEvents.replace(new RegExp('&quot;', 'g'), '"');
+        var eventsArray: EventsList = JSON.parse(jsonString);
+
+        //Make sections of Months
+            //prepend line with event date as a calendar image instead of '-'
+            //Description and link to website on click or hover?
+            //Camelcase the text
+
+        for (var i = 0; i < eventsArray.Events.length; i++) {
+            //load this into panel
+            var title = eventsArray.Events[i].Title;
+            
+            var listItem = '<li>- ' + title + '</li>';
+
+            $('#events-list').append(listItem);
+
+            setHeights();
+        }
+
     }
 
-    export function loadEvents() {
-        //load events onto  page
-        //Need to figure out to to structure this
+    export function setHeights() {
+        var newsContent = $('.right-content-news'),
+            eventsContent = $('.right-content-events');
+        $('#news-list').height(newsContent.height() - newsContent.find('h1').height());
+        $('#events-list').height(eventsContent.height() - eventsContent.find('h1').height());
     }
 
     class News {
@@ -101,5 +120,15 @@
         public Date: string;
         public URL: string;
         public Provider: string;
+    }
+
+    class EventsList {
+        public Events: Events[];
+    }
+
+    class Events {
+        public Date: string;
+        public Title: string;
+        public Desc: string;
     }
 }
