@@ -95,10 +95,31 @@ hr{
     .map-selection{
         display:block;
         width:100%;
-        height:5%;
+        height:60px;
         background-color:@panelBackground;
+        overflow:auto;
+        overflow-y:hidden !important;
+        p{
+            margin:0;
+            float:right;
+            cursor:pointer;
+        }
         table{
             color:@darkOJ;
+            width: 100%;
+            border-spacing: 0;
+            border-collapse: collapse;
+            th{
+                padding:0;
+            }
+            td{
+                padding:0;
+                text-align:center;
+                white-space:nowrap;
+                input{
+                    margin-right:2px;
+                }
+            }
         }
     }
 

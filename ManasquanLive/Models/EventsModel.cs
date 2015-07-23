@@ -10,7 +10,6 @@ using HtmlAgilityPack;
 
 namespace ManasquanLive.Models
 {
-
     public class EventListModel
     {
         public List<EventModel> Events { get; set; }

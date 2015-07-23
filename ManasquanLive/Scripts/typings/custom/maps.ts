@@ -10,7 +10,7 @@ module Maps {
     export function resizeMap(borderPanelSize: number){ 
         var animateTime = 0;
 
-        $('.center-panel').animate({ width: $(window).width() - borderPanelSize }, animateTime, function () {
+        $('.center-panel').animate({ width: $(window).width() - borderPanelSize - 5 }, animateTime, function () {
             google.maps.event.trigger(map, 'resize');
             if (!flipInitiation)
                 initializeFlip();
@@ -48,16 +48,31 @@ module Maps {
             $('.map-locations-list').append('<p>' + locationsArray[i].BusinessName + '</p>');
 
 
-            
-
-
-
-
-
         }
 
     }
     
+    export function loadCategories(jsonCategories: string) {
+        var jsonString = jsonCategories.replace(new RegExp('&quot;', 'g'), '"');
+        var categoriesArray: CategoriesList = JSON.parse(jsonString);
+ 
+        buildMapSelection(categoriesArray);
+    }
+
+    function buildMapSelection(categoriesArray: CategoriesList) {
+        var table = $('.map-selection table'),
+            width = 100 / categoriesArray.Categories.length;
+
+        table.append('<tr><th colspan="' + categoriesArray.Categories.length + '">Map Filters <p onclick= "Maps.flipCenterPanel()">List of locations</p></th></tr>');
+        table.append('<tr>');
+
+        for (var i = 0; i < categoriesArray.Categories.length; i++) {
+            var cat: Category = categoriesArray.Categories[i];
+            table.find('tr').not(':first').append('<td style="width:' + width + '%"><input catID="' + cat.ID + '" type="checkbox" />' + cat.Cat + '</td>');
+        }
+        table.append('</tr>');
+    }
+
     export function loadMapData() {
         //load map data onto  page
         //Need to figure out to to structure this
@@ -72,5 +87,14 @@ module Maps {
         public Website: string;
         public Description: string;
         public Categories: string[];
+    }
+
+    class CategoriesList {
+        public Categories: Category[];
+    }
+
+    class Category {
+        public ID: string;
+        public Cat: string;
     }
 }

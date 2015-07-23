@@ -45,6 +45,7 @@
             RightPanel.loadNews('@ViewBag.News');
             RightPanel.loadEvents('@ViewBag.Events');
             Maps.loadLocations('@ViewBag.Locations');
+            Maps.loadCategories('@ViewBag.Categories');
         </script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

@@ -201,6 +201,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\EventsModel.cs" />
+    <Compile Include="Models\CategoriesModel.cs" />
     <Compile Include="Models\LocationsModel.cs" />
     <Compile Include="Models\NewsModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

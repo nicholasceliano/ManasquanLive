@@ -82,11 +82,32 @@ hr {
 .center-panel .map-selection {
   display: block;
   width: 100%;
-  height: 5%;
+  height: 60px;
   background-color: #ececee;
+  overflow: auto;
+  overflow-y: hidden !important;
+}
+.center-panel .map-selection p {
+  margin: 0;
+  float: right;
+  cursor: pointer;
 }
 .center-panel .map-selection table {
   color: #a05e00;
+  width: 100%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+.center-panel .map-selection table th {
+  padding: 0;
+}
+.center-panel .map-selection table td {
+  padding: 0;
+  text-align: center;
+  white-space: nowrap;
+}
+.center-panel .map-selection table td input {
+  margin-right: 2px;
 }
 .center-panel .map-locations-list {
   overflow-y: scroll;

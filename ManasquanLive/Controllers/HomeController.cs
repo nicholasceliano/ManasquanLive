@@ -11,6 +11,7 @@ using HtmlAgilityPack;
 using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using System.Diagnostics;
+using Newtonsoft.Json;
 
 namespace ManasquanLive.Controllers
 {
@@ -21,8 +22,18 @@ namespace ManasquanLive.Controllers
             ViewBag.News = GetNews();
             ViewBag.Locations = GetLocations();
             ViewBag.Events = GetEvents();
+            ViewBag.Categories = GetCategories();
 
             return View();
+        }
+
+        private string GetCategories()
+        {
+            //Need to store in database
+            string categories = "{ \"Categories\":[{ \"ID\": \"1\", \"Cat\": \"Bars\"},{ \"ID\": \"2\", \"Cat\": \"Entertainment\"},{ \"ID\": \"3\", \"Cat\": \"Events\"},{ \"ID\": \"4\", \"Cat\": \"Fishing\"},{ \"ID\": \"5\", \"Cat\": \"Food/Drink Store\"},{ \"ID\": \"6\", \"Cat\": \"Hotel\"},{ \"ID\": \"7\", \"Cat\": \"Parking\"},{ \"ID\": \"8\", \"Cat\": \"Parks\"},{ \"ID\": \"9\", \"Cat\": \"Restaurants\"},{ \"ID\": \"10\", \"Cat\": \"Services\"},{ \"ID\": \"11\", \"Cat\": \"Shop\"},{ \"ID\": \"12\", \"Cat\": \"Town Hotspots\"}]}";
+            CategoriesListModel categoriesList = JsonConvert.DeserializeObject<CategoriesListModel>(categories);
+
+            return JsonConvert.SerializeObject(categoriesList);
         }
 
         private string GetNews()
@@ -32,13 +43,13 @@ namespace ManasquanLive.Controllers
             newsList = StarNewsGroupNews(GetGoogleNews());        
             newsList.Sort(new Comparison<NewsModel>((x, y) => DateTime.Compare(y.Date , x.Date)));
     
-            return Newtonsoft.Json.JsonConvert.SerializeObject(newsList);
+            return JsonConvert.SerializeObject(newsList);
         }
 
         private string GetLocations()
         {
             List<LocationsModel> businessLocations = GetBusinessLocations();
-            return Newtonsoft.Json.JsonConvert.SerializeObject(businessLocations);
+            return JsonConvert.SerializeObject(businessLocations);
         }
 
         private string GetEvents()
@@ -47,10 +58,10 @@ namespace ManasquanLive.Controllers
             //Need to add Location and Time
             //Need to build in ability to add custom events/send email to admin
             string events = "{ \"Events\" : [{ \"Date\": \"July 19, 2015\", \"Title\": \"Manasquan One Mile Swim\", \"Desc\": \"8 a.m. This event benefits the Manasquan High School Swim Team. Sign up at Ocean Avenue 6:00 am.\" } ,{ \"Date\": \"July 21, 2015\", \"Title\": \"Inlet Celebration\", \"Desc\": \"- Presented by the Manasquan Tourism Commission - Sponsored by the Manasquan Elks. Along the Manasquan Inlet - 5:30 p.m.- 9 p.m. Fun for the entire family, Food, Music Celebration, Arts and Crafts and Car Show.(Rain Date 7/ 22 / 15).\" } ,{ \"Date\": \"July 23, 2015\", \"Title\": \"Band Concert- 'WILLIE LYNCH'\", \"Desc\": \"Main Beach - 7:30 p.m.\" } ,{ \"Date\": \"July 28, 2015\", \"Title\": \"Manasquan Volunteer Engine Co. #2 Firemen's Fair\", \"Desc\": \"FUN FOR THE ENTIRE FAMILY!! Games, rides, food concessions & much, much more. 6 p.m. - 11 p.m. - Mallard Park.\"  } ,{ \"Date\": \"August 1, 2015\", \"Title\": \"Manasquan Volunteer Engine Co. #2 Firemen's Fair\", \"Desc\": \"FUN FOR THE ENTIRE FAMILY!! Games, rides, food concessions & much, much more. 6 p.m. - 11 p.m. - Mallard Park.\" } ,{ \"Date\": \"August 2, 2015\", \"Title\": \"Manasquan Seniors Festival/Craft Show\", \"Desc\": \"Squan Plaza - 8 a.m. Rain Date 8/9/15).\" } ,{ \"Date\": \"August 4, 2015\", \"Title\": \"Manasquan 'Elks Day at the Beach'\",\"Desc\": \"Held at the Elks Beach at Ocean Ave. A spirited and fun-filled gathering for challenged children and their counsellors. Call 732-223-2534 for information.\" },{ \"Date\": \"August 6, 2015\", \"Title\": \"Band Concert - 'THE KOOTZ'\", \"Desc\": \"Main Beach - 7:30 p.m.\" },{ \"Date\": \"August 7, 2015\", \"Title\": \"Manasquan Chamber of Commerce Side-walk Sale\", \"Desc\": \"Main Street - 10 a.m. – 5 p.m.\" },{ \"Date\": \"August 8, 2015\", \"Title\": \"Manasquan Chamber of Commerce Side-walk Sale\", \"Desc\": \"Main Street - 10 a.m. – 5 p.m.\" },{ \"Date\": \"August 8, 2015\", \"Title\": \"Big Sea Day Celebration\", \"Desc\": \"A fun-filled annual tradition. Activities include sand castle contest, surfing, body-surfing, pie eating contest and fishing contests. Exhibition of local artwork and much, much more.(Rain date 8/9/15).\" },{ \"Date\": \"August 8, 2015\", \"Title\": \"Sand Castle Tournament\", \"Desc\": \"Sponsored BY Manasquan Tourism Commission in conjunction with Big Sea Day Celebration. Rec Beach. (Rain date 8/9/15).\" },{ \"Date\": \"August 10, 2015\", \"Title\": \"Manasquan Lifeguard Relays\", \"Desc\": \"Main Beach - 6 p.m.\" },{ \"Date\": \"August 13, 2015\", \"Title\": \"Band Concert - 'REGGAE PLUS'\", \"Desc\": \"Main Beach - 7 p.m.\" },{ \"Date\": \"August 20, 2015\", \"Title\": \"Band Concert- DON’T KNOW JACK\", \"Desc\": \"Main Beach - 7:30 p.m.\" },{ \"Date\": \"August 30, 2015\", \"Title\": \"Clambake\", \"Desc\": \"- Presented by the Manasquan Tourism Commission - Sponsored by Squan Beach House. 2 p.m. - Mallard Park. Advanced Tickets Required.\" },{ \"Date\": \"September 5, 2015\", \"Title\": \"Labor Day Celebration\", \"Desc\": \"- Presented by the Manasquan Tourism Commission - Sponsored by The Osprey • Concert - 'MOONLIGHTING'  - 7:30 p.m. - Main Beach. • Gala fireworks display to follow - Main Beach. (Rain Date 9/ 6 / 15).\" },{ \"Date\": \"September 12, 2015\", \"Title\": \"Manasquan Board Riders Classic Surf Competition\", \"Desc\": \"Inlet Beach. (Storm Date 9/13/15).\" },{ \"Date\": \"September 26, 2015\", \"Title\": \"Manasquan Chamber of Commerce Arts and Crafts Festival\", \"Desc\": \"- Squan Plaza - 10 a.m. – 4 p.m. (Rain Date 9/27/15).\" },{ \"Date\": \"October 11, 2015\", \"Title\": \"Manasquan Chamber of Commerce Wine Festival\", \"Desc\": \"Squan Plaza Noon – 4 p.m.\" },{ \"Date\": \"November 21, 2015\", \"Title\": \"Annual Turkey Run\",  \"Desc\": \"Five Mile Run and One Mile Run. Stockton Beach. Parking Lot at the Little League Field.\" },{ \"Date\": \"December 4, 2015\", \"Title\": \"Manasquan Chamber of Commerce Tree Lighting and Candy Cane Hunt\", \"Desc\": \"Squan Plaza - 6 p.m. (Rain Date 12/11/15).\" },{ \"Date\": \"December 12, 2015\", \"Title\": \"Manasquan Chamber of Commerce Open House Weekend\", \"Desc\": \"Main Street Business District.\" } ,{ \"Date\": \"December 13, 2015\", \"Title\": \"Christmas in Manasquan\", \"Desc\": \"- Sponsored by the Manasquan Tourism Commission Come and share the holiday spirit. Carollers, Hay rides with Santa and Mrs.Claus.Main Street Business District.\" } ,{ \"Date\": \"December 13, 2015\", \"Title\": \"Manasquan Chamber of Commerce Open House Weekend\", \"Desc\": \"Main Street Business District.\" }]}";
-            EventListModel eventsList = Newtonsoft.Json.JsonConvert.DeserializeObject<EventListModel>(events);
+            EventListModel eventsList = JsonConvert.DeserializeObject<EventListModel>(events);
             eventsList.Events.Sort(new Comparison<EventModel>((x, y) => DateTime.Compare(x.Date, y.Date)));
 
-            return Newtonsoft.Json.JsonConvert.SerializeObject(eventsList);
+            return JsonConvert.SerializeObject(eventsList);
         }
 
         private List<NewsModel> GetGoogleNews()
