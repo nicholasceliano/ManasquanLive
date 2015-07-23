@@ -209,6 +209,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Images\CalendarBlank.png" />
     <Content Include="Content\Images\NewsIcons\app.ico" />
     <Content Include="Content\Images\NewsIcons\news.ico" />
     <Content Include="Content\Images\NewsIcons\patch.ico" />
@@ -268,6 +269,7 @@
     <TypeScriptCompile Include="Scripts\typings\custom\leftPanel.ts" />
     <TypeScriptCompile Include="Scripts\typings\custom\maps.ts" />
     <TypeScriptCompile Include="Scripts\typings\custom\page.ts" />
+    <TypeScriptCompile Include="Scripts\typings\custom\utility.ts" />
     <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\google.maps.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\custom\rightPanel.ts" />

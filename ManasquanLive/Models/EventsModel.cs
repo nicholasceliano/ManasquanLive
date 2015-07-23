@@ -21,5 +21,7 @@ namespace ManasquanLive.Models
         public DateTime Date { get; set; }
         public string Title { get; set; }
         public string Desc { get; set; }
+        public string Location { get; set; }
+        public string Time { get; set; }
     }
 }

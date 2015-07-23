@@ -64,7 +64,6 @@
         var newsArray: News[] = JSON.parse(jsonString);
 
         for (var i = 0; i < newsArray.length; i++) {
-            //load this into panel
             var newsIconHref;
 
             if (newsArray[i].Provider == 'Star News Group') {
@@ -88,24 +87,30 @@
 
     export function loadEvents(jsonEvents: string) {
         var jsonString = jsonEvents.replace(new RegExp('&quot;', 'g'), '"');
-        var eventsArray: EventsList = JSON.parse(jsonString);
-
-        //Make sections of Months
-            //prepend line with event date as a calendar image instead of '-'
-            //Description and link to website on click or hover?
-            //Camelcase the text
+        var eventsArray: EventsList = JSON.parse(jsonString),
+            month = null;
 
         for (var i = 0; i < eventsArray.Events.length; i++) {
-            //load this into panel
-            var title = eventsArray.Events[i].Title;
-            
-            var listItem = '<li>- ' + title + '</li>';
+            var event = eventsArray.Events[i];
+            var date: Date = new Date(event.Date);
 
+            if (month == null || month != date.getMonth()) {
+                $('#events-list').append('<li><h3>' + Utility.monthNames[date.getMonth()] + '</h3></li>');
+                month = date.getMonth();
+            }
+            var popoutPanel = '<div class="eventPopout"><b>Description:</b> ' + (event.Desc == null ? '' : event.Desc) + '<br /><b>Location:</b> ' + (event.Location == null ? '' : event.Location) + '<br /><b>Time:</b> ' + (event.Time == null ? '' : event.Time) + '</div>';
+            var listItem = '<li><div class="calDate" title="' + date.toDateString() + '">' + date.getDate() + '</div><div class="eventTitle"><span>' + event.Title + '</span></div>' + popoutPanel +'</li>';
             $('#events-list').append(listItem);
 
             setHeights();
         }
 
+        //Add events for hover
+        $('.eventTitle span').mousemove(function (e) {
+            $(this).parent().parent().find('.eventPopout').show().css({ 'top': e.pageY + 15, 'left': e.pageX - 210 });
+        }).mouseout(function () {
+            $(this).parent().parent().find('.eventPopout').hide();
+        });
     }
 
     export function setHeights() {
@@ -130,5 +135,7 @@
         public Date: string;
         public Title: string;
         public Desc: string;
+        public Location: string;
+        public Time: string;
     }
 }
